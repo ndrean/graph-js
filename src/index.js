@@ -1,4 +1,6 @@
-// import Chart from "chart.js";
+import Chart from "chart.js";
+
+// const Chart = require("chart.js");
 
 const context = document.querySelector("canvas").getContext("2d");
 
@@ -14,6 +16,16 @@ const beginAtZero = {
   },
 };
 
+const myOptions = {
+  beginAtZero,
+  title: {
+    display: true,
+    text: "Browser Usage 2019",
+    fontSize: 30,
+  },
+  // legend: { display: false },
+};
+
 const colors = {
   safari: "#25AEEE",
   chrome: "#FECD52",
@@ -25,7 +37,9 @@ const dataBrowser = {
   labels: ["Safari", "Chrome", "Firefox", "Edge"],
   datasets: [
     {
-      label: "Browser's usage share 2019",
+      label: "% market share",
+      lineTension: 0,
+      fill: false,
       data: [16.74, 64.26, 4.47, 2.11],
       backgroundColor: [
         colors.safari,
@@ -33,16 +47,16 @@ const dataBrowser = {
         colors.firefox,
         colors.edge,
       ],
-      borderWidth: 3,
+      borderWidth: 10,
     },
   ],
 };
 
 // initialize with a 'bar chart'
 let chartInstance = new Chart(context, {
-  type: "bar", //or line, doughnut, etc.
+  type: "pie", //or line, doughnut, etc.
   data: dataBrowser,
-  options: beginAtZero,
+  options: myOptions,
 });
 
 // event listener on chart type selector
@@ -52,15 +66,13 @@ chartType.addEventListener("change", (event) => {
 });
 
 const render = (type) => {
-  console.log(type);
   if (chartInstance) {
     chartInstance.destroy();
   }
+
   return (chartInstance = new Chart(context, {
     type: type,
     data: dataBrowser,
-    options: beginAtZero,
+    options: myOptions,
   }));
 };
-
-//render(chartType.value);
