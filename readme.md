@@ -85,6 +85,25 @@ When the data are bigger, we can't stuff the data directly, but pass the _URL_ i
 A Blob can be easily used as an URL for
 `URL.createObjectURL(blob)` takes a Blob and creates a unique URL for it, in the form
 
+```js
+e.preventDefault();
+const blob = await new Promise((resolve) => {
+  canvas.toBlob(resolve, "image/jpg", 1);
+  // shortcut for (blob) => { resolve(blob); }, "image/jpg", 1 );
+});
+const srcURL = URL.createObjectURL(await blob);
+```
+
+Then we create a fake link `<a domain="name.jpg" href="blob_url"></a>` and populate it with the _blob URL_. Then we programatically click it to trigger the download.
+
+```js
+const a = document.createElement("a");
+a.href = srcURL;
+const name = prompt("Enter a file name") || "graph";
+a.setAttribute("download", `${name}.jpg`);
+a.click(); // simulate click on 'fake' link
+```
+
 <https://blog.logrocket.com/programmatic-file-downloads-in-the-browser-9a5186298d5c/>
 
 <https://javascript.info/blob>
@@ -102,3 +121,18 @@ A Blob can be easily used as an URL for
 To read files or Blob objects, when working with larger files.
 
 <https://www.positronx.io/understand-html5-filereader-api-to-upload-image-and-text-files/>
+
+### Caching blobs
+
+As an example on how to save a 'small' blob, we had to use `toDataURL` as a _new Request_ and had to us `cache.put(request,response)` (since the _cache API_ doesn't accepts request as `createObjectURL(blob)`.
+
+```js
+const saveBlobToCache = async (blob) => {
+  const inCache = await caches.open("char");
+  const request = new Request(canvas.toDataURL);
+  // does not accept URL.createOBjectURL(blob)
+  const response = new Response(blob);
+  await inCache.put(request, response);
+  // .add() does not work
+};
+```
