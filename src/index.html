@@ -6,22 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body>
-    <div class="container">
-        <select id="chart-type">
-            <option value="pie">Pie</option>
-            <option value="bar">Bar</option>
-            <option value="line">line</option>
-            <option value="doughnut">Doughnut</option>
-            <option value="radar">Radar</option>
-            <option value="polarArea">Polar Area</option>
-        </select>
+    <div class="main">
+        <div class="container">
+            <h5>Select the design of the chart</h5>
+            <select id="chart-type">
+                <option value="pie">Pie</option>
+                <option value="bar">Bar</option>
+                <option value="line">line</option>
+                <option value="doughnut">Doughnut</option>
+                <option value="radar">Radar</option>
+                <option value="polarArea">Polar Area</option>
+            </select>
+        </div>
+        <canvas id="app-chart" width="80%">
+            <p>Fallback: Your browser does not support the canvas element</p>
+        </canvas>
+        <div>
+            <!-- use 'download' attribute !! -->
+            <a id="download" href="#" title="Download graphic!">
+                <!-- Download Icon -->
+                <i class="fas fa-download"></i>
+            </a>
+        </div>
+
     </div>
-    <canvas id="app-chart" width="100%">
-        <p>Fallback: Your browser does not support the canvas element</p>
-    </canvas>
+
     <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script> -->
     <!-- <script type="module" src="index.js"></script> -->
 </body>

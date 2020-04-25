@@ -1,6 +1,12 @@
 import Chart from "chart.js";
+import { download } from "./download.js";
+import { library, dom } from "@fortawesome/fontawesome-svg-core";
+import { faDownload } from "@fortawesome/free-solid-svg-icons/faDownload";
 
-// const Chart = require("chart.js");
+import { addData, removeData } from "./dynamic.js";
+
+library.add(faDownload);
+dom.watch();
 
 const context = document.querySelector("canvas").getContext("2d");
 
@@ -76,3 +82,5 @@ const render = (type) => {
     options: myOptions,
   }));
 };
+
+download();
