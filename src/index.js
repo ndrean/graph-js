@@ -8,7 +8,10 @@ import { addData, removeData } from "./dynamic.js";
 library.add(faDownload);
 dom.watch();
 
-const context = document.querySelector("canvas").getContext("2d");
+const canvas = document.querySelector("canvas");
+const context = canvas.getContext("2d");
+// canvas.width = 50;
+// canvas.height = 50;
 
 const beginAtZero = {
   scales: {

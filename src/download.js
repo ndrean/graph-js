@@ -6,30 +6,40 @@ const download = () => {
   document.body.appendChild(newfig);
 
   link.addEventListener("click", async () => {
-    // link.setAttribute("href", canvas.toDataURL("image/jpg"));
-    // e.preventDefault();
-    // toBlob is async
-    canvas.toBlob(
-      async (blob) => {
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        const name = prompt("Enter a file name") || "graph";
-        a.setAttribute("download", `${name}.jpg`);
-        await saveBlobToCache(blob);
-        appendImgFromBlobToFig(url, newfig);
-        a.click();
-        newImg.onload = () => URL.revokeObjectURL(srcURL);
-        // saveDisplayCache(blob, newfig);
-      },
-      "image/jpg",
-      1
-    );
+    // link.href =  canvas.toDataURL("image/jpg")) wokrs immediately for small files
+
+    const blob = await new Promise((resolve) => {
+      canvas.toBlob(
+        (blob) => {
+          resolve(blob);
+        },
+        "image/png",
+        1
+      );
+    });
+    /* we create a fake <a download="name.jpg" href="blob_url"></a> 
+    and populate it and programatically click it to trigger the download */
+    const srcURL = URL.createObjectURL(await blob);
+
+    const a = document.createElement("a");
+    a.href = srcURL;
+    const name = prompt("Enter a file name") || "graph";
+    a.setAttribute("download", `${name}.jpg`);
+
+    await saveBlobToCache(blob);
+    appendImgFromBlobToFig(srcURL, newfig).onload = () =>
+      URL.revokeObjectURL(srcURL);
+    a.click();
   });
 
+  // we saved in dataURI 64 format
   const saveBlobToCache = async (blob) => {
     const inCache = await caches.open("char");
-    await inCache.put(new Request(blob.toDataURL), new Response(blob));
+    const request = new Request(canvas.toDataURL);
+    // does not accept URL.createOBjectURL(blob)
+    const response = new Response(blob);
+    await inCache.put(request, response);
+    // .add() does not work
   };
 
   const appendImgFromBlobToFig = (srcURL, fig) => {
@@ -39,18 +49,8 @@ const download = () => {
     newImg.alt = "image";
     fig.appendChild(newImg);
     // no longer need to read the blob so it's revoked
-    newImg.onload = () => URL.revokeObjectURL(srcURL);
-  };
-
-  const saveDisplayCache = async (blob, fig) => {
-    // we create the URL to the blob
-    const srcURL = URL.createObjectURL(blob);
-    // console.log(canvas.toDataURL());
-    console.log(srcURL);
-    console.log(new Response(blob));
-    console.log(new Request(blob.toDataURL));
-    await saveBlobToCache(blob);
-    appendImgFromBlobToFig(srcURL, fig);
+    return newImg;
+    // newImg.onload = () => URL.revokeObjectURL(srcURL);
   };
 };
 

@@ -72,6 +72,8 @@ A Blob can be easily used as an URL for
 
 <https://blog.logrocket.com/programmatic-file-downloads-in-the-browser-9a5186298d5c/>
 
+<https://javascript.info/blob>
+
 ### Conversion Blob / DataURL
 
 <https://stackoverflow.com/questions/23150333/html5-javascript-dataurl-to-blob-blob-to-dataurl/30407959#30407959>

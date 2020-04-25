@@ -7,8 +7,20 @@ body {
     margin: 0;
 }
 
+.border {
+    border: 1px solid grey;
+    padding: 5px 5px;
+
+}
+
+.row {
+    display: flex;
+    flex-direction: column;
+
+}
+
 .container {
-    justify-content: center;
+    justify-content: flex-start;
     max-width: 90%;
     margin-left: auto;
     margin-right: auto;
