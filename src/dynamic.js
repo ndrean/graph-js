@@ -4,6 +4,7 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+/*
 // create initial empty chart
 var ctx_live = document.getElementById("mycanvas");
 var myChart = new Chart(ctx_live, {
@@ -63,3 +64,4 @@ var getData = function () {
 
 // get new data every 3 seconds
 setInterval(getData, 3000);
+*/

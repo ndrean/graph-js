@@ -8,10 +8,8 @@ import { addData, removeData } from "./dynamic.js";
 library.add(faDownload);
 dom.watch();
 
-const canvas = document.querySelector("app-chart");
+const canvas = document.querySelector("#app-chart");
 const context = canvas.getContext("2d");
-// canvas.width = 50;
-// canvas.height = 50;
 
 const beginAtZero = {
   scales: {
@@ -78,7 +76,6 @@ const render = (type) => {
   if (chartInstance) {
     chartInstance.destroy();
   }
-
   return (chartInstance = new Chart(context, {
     type: type,
     data: dataBrowser,

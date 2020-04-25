@@ -80,7 +80,7 @@ so that we obtain `<figure> <img src="data:image/png..."></figure>` at the end o
 
 ### Blob
 
-When the data are bigger, we can't stuff the data directly, but pass the _URL_ instead: we create an _Object URL_ from a _blob_ using `createObjectURL(blob)`, in the form `blob:<origin>/<uuid>`. This creates a unique _URL_ to pass to tags such as <a href="url">, <img src="url"> to show its contents.
+When the data are bigger, we can't stuff the data directly, but pass the _URL_ instead: we create an _Object URL_ from a _blob_ using `createObjectURL(blob)`, in the form `blob:<origin>/<uuid>`. This creates a unique _URL_ to pass to tags such as `<a href="url">`, `<img src="url">` to show its contents.
 
 A Blob can be easily used as an URL for
 `URL.createObjectURL(blob)` takes a Blob and creates a unique URL for it, in the form
