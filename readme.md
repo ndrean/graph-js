@@ -40,11 +40,7 @@ a id="download" download="ChartImage.jpg" href="#" class="btn btn-primary float-
 /a>
 ```
 
-## Add download chart as image:
-
-### Download the canvas
-
-The _canvas_
+## Download chart image in a file
 
 ### Data URIs (Base64 encoded strings)
 
@@ -150,3 +146,81 @@ const saveBlobToCache = async (blob) => {
 ### SaveToPDF
 
 <https://rawgit.com/MrRio/jsPDF/master/docs/index.html >
+
+### Post on internet
+
+<https://quickchart.io/documentation/>
+
+QuickChart is a web service that generates chart images on-the-fly. These images are suitable for embedding in email, SMS, chatbots, and other formats. Charts are rendered by Chart.js,
+
+## Chart.js
+
+### Capture a point on a chart
+
+```js
+options = {
+  onClick: (_, item) => {
+    try {
+      const [id, label, value] = readValues(item);
+}
+
+// the way the data are implemented in 'Chart.js' (not documented)
+const readValues = (item) => {
+  const id = item[0]["_index"];
+  const label = item[0]["_chart"].data.labels[id];
+  const value = item[0]["_chart"].data.datasets[0].data[id];
+  return [id, label, value];
+```
+
+### Remove a selected point from a graph
+
+The first event listener collects tha coordiantes of a point from the graph, and the second removes it from the data. For this to work, we need to kill the second listener with `button.removeListener('click', action)`.
+
+```js
+options = {
+  onClick: (_, item) => {
+    try {
+      const [id, label, value] = readValues(item);
+      // display the (x,y) point in a form
+      document.getElementById("newLabel").value = label;
+      document.getElementById("newValue").value = value;
+
+      // select the 'remove' button
+      const removeButton = document.querySelector("#removeData");
+
+      removeButton.addEventListener("click", callRemove);
+      document.querySelector("form").reset();
+
+      function callRemove() {
+        doRemove(chartInstance, id);
+        removeButton.removeEventListener("click", callRemove); // IMPORTANT
+      }
+    } catch (err) {} // if clicked on a point not in the graph
+  },
+};
+
+const doRemove = (chart, id) => {
+  chart.data.labels.splice(id, 1);
+  chart.data.datasets[0].data.splice(id, 1);
+  chart.data.datasets[0].backgroundColor.splice(id, 1);
+  chart.update();
+};
+```
+
+### Chart.js and Geo
+
+<https://github.com/sgratzl/chartjs-chart-geo>
+
+### Char.js library
+
+<https://github.com/chartjs/awesome>
+
+### Cube.js
+
+<https://cube.dev/docs/cubejs-introduction#why-cube-js>
+
+Cube.js is an open source modular framework to build analytical web applications. It is primarily used to build internal business intelligence tools or to add customer-facing analytics to an existing application.
+
+### Configured with Bulma @ Webpack
+
+<https://bulma.io/documentation/customize/with-webpack/>
