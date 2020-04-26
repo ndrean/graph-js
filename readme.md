@@ -55,16 +55,18 @@ If we call `dataURI = canvas.toDataURL()`, then we then can stuff the data direc
 If we define a link with a `download`attribute:
 
 ```
-'<a id="download" href="#" download="default.jpg" title="Download graphic!">
+'<a id="download" href="#" title="Download graphic!">
 ```
 
-then we following code allows the link to download immediatly. This is valid for small files.
+then we following code allows the link to download immediately since we add the attribute `download` and _url = dataURL_ is passed to the atribute `href`. This is valid for small files.
 
 ```js
 const canvas = document.querySelector("canvas");
 const link = document.getElementById("download");
 link.addEventListener("click", async () => {
-link.href = canvas.toDataURL("image/jpg");
+  link.download = prompt("Entrer a file name") || "graph";
+  link.href = canvas.toDataURL("image/jpg");
+});
 ```
 
 ```js
@@ -82,13 +84,12 @@ so that we obtain `<figure> <img src="data:image/png..."></figure>` at the end o
 
 When the data are bigger, we can't stuff the data directly, but pass the _URL_ instead: we create an _Object URL_ from a _blob_ using `createObjectURL(blob)`, in the form `blob:<origin>/<uuid>`. This creates a unique _URL_ to pass to tags such as `<a href="url">`, `<img src="url">` to show its contents.
 
-A Blob can be easily used as an URL for
-`URL.createObjectURL(blob)` takes a Blob and creates a unique URL for it, in the form
+A Blob can be easily used as an URL using `URL.createObjectURL(blob)`: this takes a Blob and creates a unique URL for it. We first convert the _HTML_ element _canvas_ to a _blob_ by `canvas.toBlob(callback, 'image/jpeg',quality%)`: (2 qualities: _png_ by default or _jpeg_)
 
 ```js
 e.preventDefault();
 const blob = await new Promise((resolve) => {
-  canvas.toBlob(resolve, "image/jpg", 1);
+  canvas.toBlob(resolve, "image/jpeg", 1);
   // shortcut for (blob) => { resolve(blob); }, "image/jpg", 1 );
 });
 const srcURL = URL.createObjectURL(await blob);
@@ -108,6 +109,10 @@ a.click(); // simulate click on 'fake' link
 
 <https://javascript.info/blob>
 
+CORS
+<https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image>
+<https://cors-image-example.glitch.me/>
+
 ### Conversion Blob / DataURL
 
 <https://stackoverflow.com/questions/23150333/html5-javascript-dataurl-to-blob-blob-to-dataurl/30407959#30407959>
@@ -121,6 +126,7 @@ a.click(); // simulate click on 'fake' link
 To read files or Blob objects, when working with larger files.
 
 <https://www.positronx.io/understand-html5-filereader-api-to-upload-image-and-text-files/>
+<https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications>
 
 ### Caching blobs
 
@@ -136,3 +142,11 @@ const saveBlobToCache = async (blob) => {
   // .add() does not work
 };
 ```
+
+### Streaming
+
+<https://nagix.github.io/chartjs-plugin-streaming/>
+
+### SaveToPDF
+
+<https://rawgit.com/MrRio/jsPDF/master/docs/index.html >
