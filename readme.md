@@ -224,3 +224,9 @@ Cube.js is an open source modular framework to build analytical web applications
 ### Configured with Bulma @ Webpack
 
 <https://bulma.io/documentation/customize/with-webpack/>
+
+### Set a random Color
+
+```js
+"#" + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6);
+```
