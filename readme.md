@@ -2,6 +2,10 @@ Live at <https://test-graph-js.surge.sh>
 
 Samples: <https://www.chartjs.org/samples/latest/>
 
+### Live at
+
+<https://test-graphjs.surge.sh>
+
 ## Install fontawsome:
 
 <https://www.pullrequest.com/blog/webpack-fontawesome-guide/>
@@ -156,23 +160,6 @@ QuickChart is a web service that generates chart images on-the-fly. These images
 ## Chart.js
 
 ### Capture a point on a chart
-
-```js
-options = {
-  onClick: (_, item) => {
-    try {
-      const [id, label, value] = readValues(item);
-}
-
-// the way the data are implemented in 'Chart.js' (not documented)
-const readValues = (item) => {
-  const id = item[0]["_index"];
-  const label = item[0]["_chart"].data.labels[id];
-  const value = item[0]["_chart"].data.datasets[0].data[id];
-  return [id, label, value];
-```
-
-### Remove a selected point from a graph
 
 We can use the method `onClick` in the _options_ (it is not the native `onclick`) which returns with the data of the point in the graph.
 Here we want to display this in the form so that we can modifiy it. To keep the _x_ value, the _id_, we pass it in a _dataset_ since we use another _event listener_ to submit the data to the graph.
