@@ -7,6 +7,9 @@ import pattern from "patternomaly";
 
 import { addDataToDataset } from "./update.js";
 
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+
 // for fontawesome
 library.add(faDownload);
 dom.watch();

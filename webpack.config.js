@@ -11,7 +11,7 @@ const config = {
     filename: "main.js", // destination: all-in-one bundle file
   },
   devServer: {
-    contentBase: "./src/", //absolute path recommendedpath.resolve(__dirname, "src"),
+    contentBase: "./dist", //absolute path recommendedpath.resolve(__dirname, "src"),
     watchContentBase: true, // full page reload, for the static html change
   },
   externals: {

@@ -174,37 +174,20 @@ const readValues = (item) => {
 
 ### Remove a selected point from a graph
 
-The first event listener collects tha coordiantes of a point from the graph, and the second removes it from the data. For this to work, we need to kill the second listener with `button.removeListener('click', action)`.
+We can use the method `onClick` in the _options_ (it is not the native `onclick`) which returns with the data of the point in the graph.
+Here we want to display this in the form so that we can modifiy it. To keep the _x_ value, the _id_, we pass it in a _dataset_ since we use another _event listener_ to submit the data to the graph.
+
+Below is showed how _Chart.js_ gives us teh data:
 
 ```js
 options = {
   onClick: (_, item) => {
     try {
-      const [id, label, value] = readValues(item);
-      // display the (x,y) point in a form
-      document.getElementById("newLabel").value = label;
-      document.getElementById("newValue").value = value;
-
-      // select the 'remove' button
-      const removeButton = document.querySelector("#removeData");
-
-      removeButton.addEventListener("click", callRemove);
-      document.querySelector("form").reset();
-
-      function callRemove() {
-        doRemove(chartInstance, id);
-        removeButton.removeEventListener("click", callRemove); // IMPORTANT
-      }
-    } catch (err) {} // if clicked on a point not in the graph
-  },
-};
-
-const doRemove = (chart, id) => {
-  chart.data.labels.splice(id, 1);
-  chart.data.datasets[0].data.splice(id, 1);
-  chart.data.datasets[0].backgroundColor.splice(id, 1);
-  chart.update();
-};
+      const id = item[0]["_index"];
+      const label = item[0]["_chart"].data.labels[id];
+      const value = item[0]["_chart"].data.datasets[0].data[id];
+      document.getElementById("newLabel").dataset.id = id;
+} catch (err) {} // since we can click outside of the plot
 ```
 
 ### Chart.js and Geo
@@ -221,7 +204,7 @@ const doRemove = (chart, id) => {
 
 Cube.js is an open source modular framework to build analytical web applications. It is primarily used to build internal business intelligence tools or to add customer-facing analytics to an existing application.
 
-### Configured with Bulma @ Webpack
+### Configured with Bootstrap @ Webpack
 
 <https://bulma.io/documentation/customize/with-webpack/>
 
