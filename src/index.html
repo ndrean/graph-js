@@ -12,10 +12,10 @@
 
 <body>
     <div class="container">
-        <div class="row justify-content-md-center">
+        <div class="row justify-content-md-center .mb-2">
             <p>You can select the design of the chart, add points to the graph, select points on the graph
                 and remove them or edit and change them </p>
-            <div class="col-sm">
+            <div class="col-sm border rounded">
                 <p>Select the type</p>
                 <select id="chart-type">
                     <option value="bar">Bar</option>
@@ -27,17 +27,18 @@
                     <option value="polarArea">Polar Area</option>
                 </select>
             </div>
-            <div class="col-sm">
+            <div class="col-sm border rounded">
                 <p>Save the graphic in a file</p>
                 <!-- use 'download' attribute !! -->
                 <a id="download" href="#" title="Download graphic!" class="mx-auto">
                     <!-- Download Icon -->
-                    <i class=" fas fa-download"></i>
+                    <button class="btn btn-success">
+                        <i class=" fas fa-download"></i></button>
                 </a>
             </div>
         </div>
-        <hr>
-        <div class="row">
+
+        <div class="row border rounded .mt-2">
             <div class="col-8">
                 <canvas id="app-chart">
                     <p>Fallback: Your browser does not support the canvas element</p>
@@ -46,7 +47,7 @@
 
 
 
-            <div class="col-sm pl-3">
+            <div class="col-sm pl-3 border rounded">
                 <form>
                     <div class="form-group">
                         <label for="dataset">Select dataset</label>
