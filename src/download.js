@@ -24,6 +24,7 @@ const download = () => {
     // create 'fake' link that is stuffed with donwloading attributes of the blob
     const a = document.createElement("a");
     a.href = srcURL;
+    // document.body.appendChild(a)
     const name = prompt("Enter a file name") || "graph";
     a.setAttribute("download", `${name}.jpeg`);
 
